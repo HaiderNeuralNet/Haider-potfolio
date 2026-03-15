@@ -1540,11 +1540,33 @@
         /* RESPONSIVE */
         @media(max-width:920px) {
             .hero-inner {
-                grid-template-columns: 1fr
+                grid-template-columns: 1fr;
+                text-align: center;
             }
 
             .hero-card {
-                display: none
+                display: block;
+                width: clamp(140px, 40vw, 220px);
+                margin: 0 auto 32px;
+            }
+
+            .hero-badge {
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: -20px;
+            }
+
+            .hero-flag {
+                top: -14px;
+                right: 0;
+            }
+
+            .hero-cta {
+                justify-content: center;
+            }
+
+            .hero-stats {
+                justify-content: center;
             }
 
             .about-grid {
@@ -1636,7 +1658,6 @@
         <div class="container">
             <div class="hero-inner">
                 <div>
-
                     <h1 class="hero-name">
                         <span class="first">Haider</span><br />
                         <span class="last">Ali Shah</span>
@@ -1672,21 +1693,6 @@
                 </div>
                 <div class="hero-card">
                     <div class="hero-img" id="hero-img-box">
-                        <!--
-                        ════════════════════════════════════════
-                        👤 ADD YOUR PHOTO HERE — 2 options:
-
-                        OPTION A — Local file (easiest):
-                          1. Put your photo (e.g. haider.jpg) in
-                             the same folder as this HTML file
-                          2. Replace   YOUR_PHOTO.jpg   below
-                             with your filename
-
-                        OPTION B — Online link:
-                          Replace YOUR_PHOTO.jpg with any
-                          direct image URL from the internet
-                        ════════════════════════════════════════
-                        -->
                         <img id="hero-photo" src="haider.jpg.jpeg" alt="Haider Ali Shah"
                             onerror="this.style.display='none';document.getElementById('hero-fallback').style.display='flex';"
                             style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;" />
@@ -1721,9 +1727,9 @@
             <div class="about-grid">
                 <div class="reveal">
                     <div class="about-card">
-                        <!-- Same photo as hero — just replace YOUR_PHOTO.jpg -->
+                        <!-- FIX: Now using the correct photo filename -->
                         <div class="about-avatar" style="overflow:hidden;padding:0;">
-                            <img src="YOUR_PHOTO.jpg" alt="Haider Ali Shah"
+                            <img src="haider.jpg.jpeg" alt="Haider Ali Shah"
                                 onerror="this.style.display='none';this.parentElement.innerHTML='HAS';"
                                 style="width:100%;height:100%;object-fit:cover;object-position:top;border-radius:50%;" />
                         </div>
@@ -2005,7 +2011,6 @@
             <div class="contact-grid">
                 <div class="reveal">
                     <div class="s-label">Get In Touch</div>
-
                     <p class="contact-text">Fill in the form and your message will be sent directly to my email — I'll
                         reply as soon as I can!</p>
                     <div class="contact-links">
@@ -2065,29 +2070,13 @@
                     </div>
                 </div>
 
-                <!-- FORM — powered by Formspree native POST (works locally + hosted) -->
                 <div class="contact-form reveal d1" id="form-wrap">
                     <div class="form-note">
                         📬 Messages go straight to Haider's Gmail inbox — he'll reply personally!
                     </div>
-
-                    <!--
-                    ╔══════════════════════════════════════════════════════╗
-                    ║  HOW TO ACTIVATE (2 minutes, completely free):       ║
-                    ║  1. Go to https://formspree.io → Sign up with Gmail  ║
-                    ║  2. Click "+ New Form" → copy the form ID            ║
-                    ║     e.g.  xpwzabcd  from  formspree.io/f/xpwzabcd   ║
-                    ║  3. Replace YOUR_FORM_ID below with your real ID     ║
-                    ║  4. Check Gmail → click Formspree confirmation email ║
-                    ╚══════════════════════════════════════════════════════╝
-                    -->
                     <form id="contact-form" action="https://formspree.io/f/xdawdrrq" method="POST" novalidate>
-
-                        <!-- Redirect back to the same page after submit -->
                         <input type="hidden" name="_next" value="?sent=1" />
-                        <!-- Custom subject line in Gmail -->
                         <input type="hidden" name="_subject" value="📩 New message from your portfolio!" />
-
                         <div class="form-row2">
                             <div class="fg">
                                 <label for="f-name">Your Name</label>
@@ -2121,8 +2110,6 @@
                             </svg>
                         </button>
                     </form>
-
-                    <!-- Success banner — shown when page loads with ?sent=1 -->
                     <div id="form-success">
                         <div class="big">🎉</div>
                         <h3>Message Sent!</h3>
@@ -2137,7 +2124,6 @@
     <footer>
         <div class="container">
             <div class="foot-l">Designed &amp; Built by <span>Haider Ali Shah</span> · © 2026</div>
-
         </div>
     </footer>
 
@@ -2219,29 +2205,14 @@
             });
         });
 
-        /* ══════════════════════════════════════════════════════
-           CONTACT FORM — native HTML POST to Formspree
-           Works locally (file://) AND when hosted online.
-           No CORS issues. No fetch. No errors.
-
-           TO ACTIVATE:
-           1. Go to https://formspree.io → sign up FREE with Gmail
-           2. Click "+ New Form" → copy your form ID
-              e.g. xpwzabcd  (from the URL formspree.io/f/xpwzabcd)
-           3. Find YOUR_FORM_ID in the <form action="..."> above
-              and replace it with your real ID
-           4. Check Gmail → click Formspree's confirmation email ✅
-        ══════════════════════════════════════════════════════ */
-
         /* Show success banner if redirected back with ?sent=1 */
         if (window.location.search.includes('sent=1')) {
             document.getElementById('contact-form').style.display = 'none';
             document.getElementById('form-success').style.display = 'block';
-            /* clean URL without reloading */
             history.replaceState(null, '', window.location.pathname);
         }
 
-        /* Client-side validation before allowing native POST */
+        /* Client-side validation */
         const form = document.getElementById('contact-form');
         const submitBtn = document.getElementById('submit-btn');
         const btnText = document.getElementById('btn-text');
@@ -2271,25 +2242,6 @@
 
             if (!ok) { e.preventDefault(); return; }
 
-            /* Check if form ID has been set */
-            const action = form.getAttribute('action');
-            if (action.includes('YOUR_FORM_ID')) {
-                e.preventDefault();
-                const warn = document.createElement('div');
-                warn.style.cssText = 'margin-top:14px;padding:12px 14px;border-radius:8px;font-size:.82rem;color:var(--neon2);background:rgba(0,212,255,.07);border:1px solid rgba(0,212,255,.2);line-height:1.6';
-                warn.innerHTML = '⚙️ <strong>Almost there!</strong> Open this HTML file in VS Code, '
-                    + 'find <code style="color:var(--neon)">YOUR_FORM_ID</code> in the form tag, '
-                    + 'and replace it with your real Formspree ID from '
-                    + '<a href="https://formspree.io" target="_blank" style="color:var(--neon);text-decoration:underline">formspree.io</a>.<br>'
-                    + 'Until then: <a href="mailto:haiderneuralnet.contact@gmail.com" style="color:var(--neon)">haiderneuralnet.contact@gmail.com</a>';
-                /* remove old warnings */
-                form.querySelectorAll('.setup-warn').forEach(el => el.remove());
-                warn.classList.add('setup-warn');
-                form.appendChild(warn);
-                return;
-            }
-
-            /* All good — show sending state and let native POST proceed */
             btnText.textContent = 'Sending…';
             submitBtn.classList.add('sending');
         });
