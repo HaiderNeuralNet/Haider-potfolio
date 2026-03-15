@@ -2099,7 +2099,7 @@
                             <label for="f-msg">Message</label>
                             <textarea id="f-msg" name="message"
                                 placeholder="Tell me about your idea, project, or question…"></textarea>
-                            <div class="ferr" id="e-msg">Please write at least 5 characters.</div>
+                            <div class="ferr" id="e-msg">Please write a meaningfull message.</div>
                         </div>
                         <button type="submit" class="btn btn-neon btn-submit" id="submit-btn">
                             <span id="btn-text">Send Message</span>
@@ -2238,7 +2238,7 @@
             if (!n.value.trim()) { showErr('e-name', n); ok = false; } else hideErr('e-name', n);
             if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim())) { showErr('e-email', em); ok = false; } else hideErr('e-email', em);
             if (!s.value.trim()) { showErr('e-subject', s); ok = false; } else hideErr('e-subject', s);
-            if (m.value.trim().length < 5) { showErr('e-msg', m); ok = false; } else hideErr('e-msg', m);
+            if (m.value.trim().length < 4) { showErr('e-msg', m); ok = false; } else hideErr('e-msg', m);
 
             if (!ok) { e.preventDefault(); return; }
 
