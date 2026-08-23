@@ -1,16 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Haider Ali Shah — AI Student & Developer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600&display=swap"
-        rel="stylesheet" />
-
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
     <style>
         :root {
             --neon: #00f5a0;
@@ -53,17 +49,15 @@
             --glow2: 0 0 32px rgba(0, 160, 200, 0.10);
         }
 
-        *,
-        *::before,
-        *::after {
+        * {
             box-sizing: border-box;
             margin: 0;
-            padding: 0
+            padding: 0;
         }
 
         html {
             scroll-behavior: smooth;
-            font-size: 16px
+            font-size: 16px;
         }
 
         body {
@@ -76,25 +70,35 @@
             transition: background var(--tr), color var(--tr);
         }
 
+        #canvas-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+
         img {
             max-width: 100%;
-            display: block
+            display: block;
         }
 
         a {
             color: inherit;
-            text-decoration: none
+            text-decoration: none;
         }
 
         button {
             font-family: var(--font-body);
             cursor: pointer;
             border: none;
-            background: none
+            background: none;
         }
 
         ul {
-            list-style: none
+            list-style: none;
         }
 
         .container {
@@ -104,7 +108,9 @@
         }
 
         section {
-            padding-block: clamp(72px, 10vw, 120px)
+            padding-block: clamp(72px, 10vw, 120px);
+            position: relative;
+            z-index: 1;
         }
 
         .tag-pill {
@@ -120,7 +126,6 @@
             color: var(--text2);
         }
 
-        /* BG GRID */
         .bg-grid {
             position: fixed;
             inset: 0;
@@ -136,7 +141,6 @@
             background-image: linear-gradient(rgba(0, 120, 80, .05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 120, 80, .05) 1px, transparent 1px);
         }
 
-        /* PRELOADER */
         #preloader {
             position: fixed;
             inset: 0;
@@ -152,7 +156,7 @@
 
         #preloader.hidden {
             opacity: 0;
-            visibility: hidden
+            visibility: hidden;
         }
 
         .pre-logo {
@@ -163,6 +167,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            animation: floatInScale 0.8s ease-out;
         }
 
         .pre-bar {
@@ -182,12 +187,20 @@
         }
 
         @keyframes preLoad {
+            to { width: 100% }
+        }
+
+        @keyframes floatInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
             to {
-                width: 100%
+                opacity: 1;
+                transform: scale(1);
             }
         }
 
-        /* NAV */
         #nav {
             position: fixed;
             top: 0;
@@ -208,7 +221,7 @@
         }
 
         [data-theme="light"] #nav.scrolled {
-            background: rgba(242, 246, 255, .9)
+            background: rgba(242, 246, 255, .9);
         }
 
         #nav .container {
@@ -227,6 +240,12 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             letter-spacing: -.02em;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .nav-logo:hover {
+            transform: scale(1.05);
         }
 
         .nav-links {
@@ -241,6 +260,7 @@
             color: var(--text2);
             transition: color var(--tr);
             position: relative;
+            overflow: hidden;
         }
 
         .nav-links a::after {
@@ -256,18 +276,18 @@
 
         .nav-links a:hover,
         .nav-links a.active {
-            color: var(--neon)
+            color: var(--neon);
         }
 
         .nav-links a:hover::after,
         .nav-links a.active::after {
-            width: 100%
+            width: 100%;
         }
 
         .nav-actions {
             display: flex;
             align-items: center;
-            gap: 10px
+            gap: 10px;
         }
 
         #theme-toggle {
@@ -286,7 +306,8 @@
 
         #theme-toggle:hover {
             border-color: var(--neon);
-            color: var(--neon)
+            color: var(--neon);
+            transform: rotate(20deg);
         }
 
         .hamburger {
@@ -312,16 +333,16 @@
         }
 
         .hamburger.open span:nth-child(1) {
-            transform: translateY(6.5px) rotate(45deg)
+            transform: translateY(6.5px) rotate(45deg);
         }
 
         .hamburger.open span:nth-child(2) {
             opacity: 0;
-            transform: scaleX(0)
+            transform: scaleX(0);
         }
 
         .hamburger.open span:nth-child(3) {
-            transform: translateY(-6.5px) rotate(-45deg)
+            transform: translateY(-6.5px) rotate(-45deg);
         }
 
         .mobile-menu {
@@ -341,18 +362,17 @@
         }
 
         .mobile-menu.open {
-            display: flex
+            display: flex;
         }
 
         @keyframes slideDown {
             from {
                 opacity: 0;
-                transform: translateY(-8px)
+                transform: translateY(-8px);
             }
-
             to {
                 opacity: 1;
-                transform: none
+                transform: none;
             }
         }
 
@@ -367,10 +387,9 @@
         }
 
         .mobile-menu a:hover {
-            color: var(--neon)
+            color: var(--neon);
         }
 
-        /* BUTTONS */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -381,6 +400,7 @@
             font-weight: 600;
             transition: all var(--tr);
             white-space: nowrap;
+            cursor: pointer;
         }
 
         .btn-neon {
@@ -408,10 +428,9 @@
 
         .btn-sm {
             padding: 7px 16px;
-            font-size: .78rem
+            font-size: .78rem;
         }
 
-        /* SECTION HEADS */
         .s-label {
             font-size: .72rem;
             font-weight: 700;
@@ -422,6 +441,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            animation: slideInLabel 0.6s ease-out;
         }
 
         .s-label::before {
@@ -432,6 +452,17 @@
             background: var(--neon);
         }
 
+        @keyframes slideInLabel {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
         .s-title {
             font-family: var(--font-head);
             font-size: clamp(1.9rem, 4vw, 3rem);
@@ -440,6 +471,18 @@
             letter-spacing: -.03em;
             color: var(--text);
             margin-bottom: 14px;
+            animation: slideInTitle 0.7s ease-out;
+        }
+
+        @keyframes slideInTitle {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .s-sub {
@@ -447,13 +490,24 @@
             font-size: clamp(.9rem, 1.4vw, 1rem);
             max-width: 500px;
             font-weight: 300;
+            animation: slideInSub 0.8s ease-out;
+        }
+
+        @keyframes slideInSub {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .s-head {
-            margin-bottom: clamp(40px, 6vw, 64px)
+            margin-bottom: clamp(40px, 6vw, 64px);
         }
 
-        /* REVEAL */
         .reveal {
             opacity: 0;
             transform: translateY(28px);
@@ -462,30 +516,15 @@
 
         .reveal.in {
             opacity: 1;
-            transform: none
+            transform: none;
         }
 
-        .d1 {
-            transition-delay: .1s
-        }
+        .d1 { transition-delay: .1s }
+        .d2 { transition-delay: .2s }
+        .d3 { transition-delay: .3s }
+        .d4 { transition-delay: .4s }
+        .d5 { transition-delay: .5s }
 
-        .d2 {
-            transition-delay: .2s
-        }
-
-        .d3 {
-            transition-delay: .3s
-        }
-
-        .d4 {
-            transition-delay: .4s
-        }
-
-        .d5 {
-            transition-delay: .5s
-        }
-
-        /* HERO */
         #hero {
             min-height: 100dvh;
             display: flex;
@@ -500,6 +539,12 @@
             border-radius: 50%;
             pointer-events: none;
             filter: blur(80px);
+            animation: orbFloat 8s ease-in-out infinite;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translateY(0px) }
+            50% { transform: translateY(30px) }
         }
 
         .orb-1 {
@@ -508,6 +553,7 @@
             top: -100px;
             right: -80px;
             background: radial-gradient(circle, rgba(0, 245, 160, .12), transparent 70%);
+            animation-delay: 0s;
         }
 
         .orb-2 {
@@ -516,6 +562,7 @@
             bottom: 0;
             left: -60px;
             background: radial-gradient(circle, rgba(0, 212, 255, .1), transparent 70%);
+            animation-delay: 2s;
         }
 
         .hero-inner {
@@ -540,6 +587,18 @@
             font-weight: 500;
             color: var(--text2);
             margin-bottom: 22px;
+            animation: slideInDown 0.7s ease-out;
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .status-dot {
@@ -552,15 +611,8 @@
         }
 
         @keyframes blink {
-
-            0%,
-            100% {
-                opacity: 1
-            }
-
-            50% {
-                opacity: .4
-            }
+            0%, 100% { opacity: 1 }
+            50% { opacity: .4 }
         }
 
         .hero-name {
@@ -570,10 +622,22 @@
             line-height: .95;
             letter-spacing: -.04em;
             margin-bottom: 12px;
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .hero-name .first {
-            color: var(--text)
+            color: var(--text);
         }
 
         .hero-name .last {
@@ -583,17 +647,24 @@
             background-clip: text;
         }
 
-        .hero-role {
-            font-size: clamp(1rem, 2vw, 1.2rem);
-            color: var(--text2);
-            font-weight: 300;
-            margin-bottom: 20px;
-        }
+       .hero-role {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: var(--text2);
+    font-weight: 300;
+    margin-bottom: 20px;
+}
 
-        .hero-role span {
-            color: var(--neon2);
-            font-weight: 500
-        }
+.hero-role span {
+    color: var(--text2);
+    font-weight: 500;
+    margin-right: 16px;
+}
+
+.hero-role span:first-child {
+    color: var(--neon2);
+    display: inline-block;
+    margin-bottom: 8px;
+}
 
         .hero-bio {
             font-size: clamp(.9rem, 1.4vw, 1rem);
@@ -602,13 +673,17 @@
             max-width: 480px;
             line-height: 1.75;
             margin-bottom: 36px;
+            animation: slideInUp 1s ease-out;
+            animation-fill-mode: both;
         }
 
         .hero-cta {
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
-            margin-bottom: 52px
+            margin-bottom: 52px;
+            animation: slideInUp 1.1s ease-out;
+            animation-fill-mode: both;
         }
 
         .hero-stats {
@@ -616,6 +691,8 @@
             gap: 40px;
             padding-top: 36px;
             border-top: 1px solid var(--border);
+            animation: slideInUp 1.2s ease-out;
+            animation-fill-mode: both;
         }
 
         .hstat-n {
@@ -635,13 +712,19 @@
             margin-top: 4px;
             font-weight: 500;
             letter-spacing: .05em;
-            text-transform: uppercase
+            text-transform: uppercase;
         }
 
         .hero-card {
             width: clamp(200px, 26vw, 330px);
             flex-shrink: 0;
             position: relative;
+            animation: float-card 3s ease-in-out infinite;
+        }
+
+        @keyframes float-card {
+            0%, 100% { transform: translateY(0px) rotateY(0deg); }
+            50% { transform: translateY(-20px) rotateY(5deg); }
         }
 
         .hero-img {
@@ -654,6 +737,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            perspective: 1000px;
+            transition: all 0.3s ease;
+        }
+
+        .hero-img:hover {
+            transform: scale(1.02) rotateY(-3deg) rotateX(2deg);
+            box-shadow: var(--shadow), 0 0 60px rgba(0, 245, 160, 0.3);
         }
 
         .avatar-initials {
@@ -677,6 +767,8 @@
             padding: 12px 16px;
             box-shadow: var(--shadow), var(--glow);
             min-width: 158px;
+            animation: slideInUp 1.3s ease-out;
+            animation-fill-mode: both;
         }
 
         .hb-top {
@@ -684,14 +776,14 @@
             color: var(--text3);
             font-weight: 600;
             letter-spacing: .08em;
-            text-transform: uppercase
+            text-transform: uppercase;
         }
 
         .hb-bot {
             font-size: .9rem;
             color: var(--text);
             font-weight: 600;
-            margin-top: 3px
+            margin-top: 3px;
         }
 
         .hero-flag {
@@ -706,6 +798,12 @@
             font-weight: 600;
             color: var(--text);
             box-shadow: var(--shadow);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
 
         .scroll-hint {
@@ -725,21 +823,13 @@
         }
 
         @keyframes floatY {
-
-            0%,
-            100% {
-                transform: translateX(-50%) translateY(0)
-            }
-
-            50% {
-                transform: translateX(-50%) translateY(-7px)
-            }
+            0%, 100% { transform: translateX(-50%) translateY(0) }
+            50% { transform: translateX(-50%) translateY(-7px) }
         }
 
-        /* ABOUT */
         #about {
             background: var(--bg2);
-            position: relative
+            position: relative;
         }
 
         .about-grid {
@@ -756,6 +846,13 @@
             padding: 32px;
             text-align: center;
             position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .about-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow), var(--glow);
+            border-color: var(--border-n);
         }
 
         .about-avatar {
@@ -772,6 +869,18 @@
             font-weight: 800;
             color: #07090f;
             box-shadow: var(--glow);
+            animation: rotateAvatar 0.6s ease-out;
+        }
+
+        @keyframes rotateAvatar {
+            from {
+                transform: scale(0) rotate(-180deg);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1) rotate(0);
+                opacity: 1;
+            }
         }
 
         .about-card-name {
@@ -806,11 +915,31 @@
             border: 1px solid var(--border);
             font-size: .85rem;
             color: var(--text2);
+            transition: all 0.3s;
+            animation: slideIn 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .acd-item:hover {
+            background: rgba(0, 245, 160, 0.1);
+            border-color: var(--neon);
+            transform: translateX(5px);
         }
 
         .acd-icon {
             font-size: 1rem;
-            flex-shrink: 0
+            flex-shrink: 0;
         }
 
         .about-bio-text {
@@ -823,7 +952,7 @@
 
         .about-bio-text strong {
             color: var(--text);
-            font-weight: 500
+            font-weight: 500;
         }
 
         .fun-facts {
@@ -839,16 +968,36 @@
             border-radius: var(--radius);
             padding: 14px;
             transition: border-color var(--tr), transform var(--tr);
+            animation: slideInCard 0.7s ease-out;
+            animation-fill-mode: both;
+        }
+
+        @keyframes slideInCard {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .ff-card:hover {
             border-color: var(--neon);
-            transform: translateY(-3px)
+            transform: translateY(-3px);
+            box-shadow: var(--glow);
         }
 
         .ff-icon {
             font-size: 1.3rem;
-            margin-bottom: 6px
+            margin-bottom: 6px;
+            animation: bounce 0.6s ease-out;
+        }
+
+        @keyframes bounce {
+            0% { transform: translateY(-20px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
         }
 
         .ff-label {
@@ -856,19 +1005,18 @@
             color: var(--text3);
             font-weight: 600;
             letter-spacing: .08em;
-            text-transform: uppercase
+            text-transform: uppercase;
         }
 
         .ff-val {
             font-size: .88rem;
             color: var(--text);
             font-weight: 500;
-            margin-top: 2px
+            margin-top: 2px;
         }
 
-        /* SKILLS */
         #skills {
-            background: var(--bg)
+            background: var(--bg);
         }
 
         .skills-layout {
@@ -883,6 +1031,19 @@
             border-radius: var(--radius-lg);
             padding: 28px;
             transition: border-color var(--tr), transform var(--tr), box-shadow var(--tr);
+            animation: slideInSkill 0.7s ease-out;
+            animation-fill-mode: both;
+        }
+
+        @keyframes slideInSkill {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .skill-cat:hover {
@@ -901,21 +1062,22 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            animation: slideInLabel 0.6s ease-out;
         }
 
         .sc-title::after {
             flex: 1;
             height: 1px;
             content: '';
-            background: var(--border)
+            background: var(--border);
         }
 
         .skill-bar-row {
-            margin-bottom: 14px
+            margin-bottom: 14px;
         }
 
         .skill-bar-row:last-of-type {
-            margin-bottom: 0
+            margin-bottom: 0;
         }
 
         .sb-top {
@@ -929,14 +1091,14 @@
 
         .sb-top span:last-child {
             font-size: .75rem;
-            color: var(--text3)
+            color: var(--text3);
         }
 
         .sb-track {
             height: 4px;
             background: var(--bg3);
             border-radius: 100px;
-            overflow: hidden
+            overflow: hidden;
         }
 
         .sb-fill {
@@ -964,17 +1126,30 @@
             border: 1px solid var(--border);
             color: var(--text2);
             transition: all var(--tr);
+            animation: slideInTag 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+
+        @keyframes slideInTag {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .st:hover {
             background: var(--neon);
             color: #07090f;
-            border-color: var(--neon)
+            border-color: var(--neon);
+            transform: translateY(-2px);
         }
 
-        /* PROJECTS */
         #projects {
-            background: var(--bg2)
+            background: var(--bg2);
         }
 
         .projects-grid {
@@ -991,10 +1166,23 @@
             display: flex;
             flex-direction: column;
             transition: transform var(--tr), box-shadow var(--tr), border-color var(--tr);
+            animation: slideInProject 0.7s ease-out;
+            animation-fill-mode: both;
+        }
+
+        @keyframes slideInProject {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
         .proj-card:hover {
-            transform: translateY(-7px);
+            transform: translateY(-7px) rotateY(-2deg);
             box-shadow: var(--shadow), var(--glow);
             border-color: var(--border-n);
         }
@@ -1006,32 +1194,46 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
+            background-size: cover;
+            background-position: center;
         }
 
         .proj-thumb.g1 {
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364)
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
         }
 
         .proj-thumb.g2 {
-            background: linear-gradient(135deg, #1a0533, #2d1b69, #11998e)
+            background: linear-gradient(135deg, #1a0533, #2d1b69, #11998e);
         }
 
         .proj-thumb.g3 {
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e)
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
         }
 
         .proj-thumb.g4 {
-            background: linear-gradient(135deg, #093028, #237a57, #0f2027)
+            background: linear-gradient(135deg, #093028, #237a57, #0f2027);
         }
 
         .proj-thumb.g5 {
-            background: linear-gradient(135deg, #200122, #6f0000, #200122)
+            background: linear-gradient(135deg, #200122, #6f0000, #200122);
         }
 
         .proj-emoji {
             font-size: 3rem;
             position: relative;
-            z-index: 1
+            z-index: 1;
+            animation: popIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: scale(0) rotate(-180deg);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1) rotate(0);
+                opacity: 1;
+            }
         }
 
         .proj-num {
@@ -1051,14 +1253,14 @@
             padding: 22px;
             flex: 1;
             display: flex;
-            flex-direction: column
+            flex-direction: column;
         }
 
         .proj-stack {
             display: flex;
             flex-wrap: wrap;
             gap: 6px;
-            margin-bottom: 14px
+            margin-bottom: 14px;
         }
 
         .proj-tag {
@@ -1090,17 +1292,16 @@
 
         .proj-actions {
             display: flex;
-            gap: 10px
+            gap: 10px;
         }
 
-        /* EDUCATION */
         #education {
-            background: var(--bg)
+            background: var(--bg);
         }
 
         .timeline {
             position: relative;
-            max-width: 820px
+            max-width: 820px;
         }
 
         .timeline::before {
@@ -1111,6 +1312,16 @@
             width: 1px;
             height: 100%;
             background: linear-gradient(to bottom, var(--neon), var(--neon2), transparent);
+            animation: slideDown 1.2s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                height: 0;
+            }
+            to {
+                height: 100%;
+            }
         }
 
         .tl-item {
@@ -1118,10 +1329,23 @@
             gap: 32px;
             padding-bottom: 44px;
             position: relative;
+            animation: slideInTimeline 0.8s ease-out;
+            animation-fill-mode: both;
+        }
+
+        @keyframes slideInTimeline {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .tl-item:last-child {
-            padding-bottom: 0
+            padding-bottom: 0;
         }
 
         .tl-dot-col {
@@ -1140,6 +1364,7 @@
             background: linear-gradient(135deg, var(--neon), var(--neon2));
             border: 2px solid var(--bg);
             box-shadow: 0 0 0 3px rgba(0, 245, 160, .2), var(--glow);
+            animation: pulse 2s ease-in-out infinite;
         }
 
         .tl-card {
@@ -1153,7 +1378,8 @@
 
         .tl-card:hover {
             border-color: var(--border-n);
-            box-shadow: var(--glow)
+            box-shadow: var(--glow);
+            transform: translateY(-4px);
         }
 
         .tl-top {
@@ -1202,7 +1428,7 @@
             display: flex;
             flex-wrap: wrap;
             gap: 6px;
-            margin-top: 14px
+            margin-top: 14px;
         }
 
         .tl-chip {
@@ -1214,9 +1440,8 @@
             padding: 3px 9px;
         }
 
-        /* CONTACT */
         #contact {
-            background: var(--bg2)
+            background: var(--bg2);
         }
 
         .contact-grid {
@@ -1254,7 +1479,7 @@
             display: flex;
             flex-direction: column;
             gap: 12px;
-            margin-bottom: 30px
+            margin-bottom: 30px;
         }
 
         .c-link {
@@ -1268,35 +1493,49 @@
             font-size: .875rem;
             color: var(--text2);
             transition: all var(--tr);
+            text-decoration: none;
+            animation: slideInContact 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+
+        @keyframes slideInContact {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .c-link:hover {
             border-color: var(--neon);
             color: var(--text);
-            transform: translateX(4px)
+            transform: translateX(4px);
         }
 
         .c-link .ci {
             font-size: 1rem;
-            flex-shrink: 0
+            flex-shrink: 0;
         }
 
         .ci-lbl {
             font-size: .68rem;
             color: var(--text3);
             text-transform: uppercase;
-            letter-spacing: .09em
+            letter-spacing: .09em;
         }
 
         .ci-val {
             font-size: .875rem;
             color: var(--text);
-            font-weight: 500
+            font-weight: 500;
         }
 
         .c-link.copyable {
             position: relative;
-            cursor: pointer
+            cursor: pointer;
         }
 
         .copy-tip {
@@ -1317,12 +1556,12 @@
         }
 
         .copy-tip.show {
-            opacity: 1
+            opacity: 1;
         }
 
         .socials {
             display: flex;
-            gap: 10px
+            gap: 10px;
         }
 
         .soc {
@@ -1337,21 +1576,34 @@
             font-size: 1rem;
             color: var(--text2);
             transition: all var(--tr);
+            text-decoration: none;
+            cursor: pointer;
         }
 
         .soc:hover {
             background: var(--neon);
             color: #07090f;
             border-color: var(--neon);
-            transform: translateY(-3px)
+            transform: translateY(-3px);
         }
 
-        /* FORM */
         .contact-form {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius-lg);
             padding: clamp(24px, 4vw, 40px);
+            animation: slideInForm 0.7s ease-out;
+        }
+
+        @keyframes slideInForm {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .form-note {
@@ -1368,11 +1620,11 @@
         .form-row2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 16px
+            gap: 16px;
         }
 
         .fg {
-            margin-bottom: 16px
+            margin-bottom: 16px;
         }
 
         .fg label {
@@ -1402,7 +1654,7 @@
 
         .fg input::placeholder,
         .fg textarea::placeholder {
-            color: var(--text3)
+            color: var(--text3);
         }
 
         .fg input:focus,
@@ -1413,22 +1665,29 @@
 
         .fg input.err,
         .fg textarea.err {
-            border-color: #ff4d4d
+            border-color: #ff4d4d;
         }
 
         .ferr {
             font-size: .72rem;
             color: #ff4d4d;
             margin-top: 5px;
-            display: none
+            display: none;
         }
 
         .ferr.show {
-            display: block
+            display: block;
+            animation: shake 0.4s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
         }
 
         .fg textarea {
-            min-height: 120px
+            min-height: 120px;
         }
 
         .btn-submit {
@@ -1440,29 +1699,43 @@
 
         .btn-submit.sending {
             opacity: .7;
-            pointer-events: none
+            pointer-events: none;
+            animation: pulse 1s ease-in-out infinite;
         }
 
         #form-success {
             text-align: center;
             padding: 36px 20px;
             display: none;
+            animation: slideInSuccess 0.6s ease-out;
+        }
+
+        @keyframes slideInSuccess {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         #form-success .big {
             font-size: 2.8rem;
-            margin-bottom: 12px
+            margin-bottom: 12px;
+            animation: bounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         #form-success h3 {
             font-family: var(--font-head);
             font-size: 1.2rem;
-            margin-bottom: 8px
+            margin-bottom: 8px;
         }
 
         #form-success p {
             font-size: .875rem;
-            color: var(--text2)
+            color: var(--text2);
         }
 
         #form-error-msg {
@@ -1473,9 +1746,20 @@
             margin-top: 12px;
             background: rgba(255, 77, 77, .08);
             border: 1px solid rgba(255, 77, 77, .2);
+            animation: slideInError 0.4s ease-out;
         }
 
-        /* FOOTER */
+        @keyframes slideInError {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         footer {
             background: var(--bg);
             border-top: 1px solid var(--border);
@@ -1492,19 +1776,18 @@
 
         .foot-l {
             font-size: .8rem;
-            color: var(--text3)
+            color: var(--text3);
         }
 
         .foot-l span {
-            color: var(--neon)
+            color: var(--neon);
         }
 
         .foot-r {
             font-size: .78rem;
-            color: var(--text3)
+            color: var(--text3);
         }
 
-        /* BACK TO TOP */
         #btt {
             position: fixed;
             bottom: 28px;
@@ -1524,20 +1807,20 @@
             transform: translateY(12px);
             transition: all var(--tr);
             font-size: 1.1rem;
+            cursor: pointer;
         }
 
         #btt.vis {
             opacity: 1;
             pointer-events: auto;
-            transform: translateY(0)
+            transform: translateY(0);
         }
 
         #btt:hover {
             transform: translateY(-3px);
-            filter: brightness(1.1)
+            filter: brightness(1.1);
         }
 
-        /* RESPONSIVE */
         @media(max-width:920px) {
             .hero-inner {
                 grid-template-columns: 1fr;
@@ -1570,57 +1853,55 @@
             }
 
             .about-grid {
-                grid-template-columns: 1fr
+                grid-template-columns: 1fr;
             }
 
             .about-card {
-                max-width: 380px
+                max-width: 380px;
             }
 
             .contact-grid {
-                grid-template-columns: 1fr
+                grid-template-columns: 1fr;
             }
 
             .nav-links {
-                display: none
+                display: none;
             }
 
             .hamburger {
-                display: flex
+                display: flex;
             }
         }
 
         @media(max-width:580px) {
             .hero-stats {
                 gap: 22px;
-                flex-wrap: wrap
+                flex-wrap: wrap;
             }
 
             .projects-grid {
-                grid-template-columns: 1fr
+                grid-template-columns: 1fr;
             }
 
             .fun-facts {
-                grid-template-columns: 1fr
+                grid-template-columns: 1fr;
             }
 
             .form-row2 {
-                grid-template-columns: 1fr
+                grid-template-columns: 1fr;
             }
 
             #btt {
                 bottom: 18px;
-                right: 18px
+                right: 18px;
             }
         }
-        
     </style>
 </head>
-
 <body>
+    <canvas id="canvas-bg"></canvas>
     <div class="bg-grid" aria-hidden="true"></div>
 
-    <!-- PRELOADER -->
     <div id="preloader">
         <div class="pre-logo">HAS.</div>
         <div class="pre-bar">
@@ -1628,10 +1909,9 @@
         </div>
     </div>
 
-    <!-- NAV -->
     <nav id="nav" aria-label="Main navigation">
         <div class="container">
-            <a href="#hero" class="nav-logo">HaiderNeuralNet</a>
+            <a href="#hero" class="nav-logo">Haider</a>
             <ul class="nav-links">
                 <li><a href="#about">About</a></li>
                 <li><a href="#skills">Skills</a></li>
@@ -1652,25 +1932,35 @@
         <a href="#projects">Projects</a><a href="#education">Education</a><a href="#contact">Contact</a>
     </div>
 
-    <!-- HERO -->
     <section id="hero" aria-label="Introduction">
         <div class="orb orb-1" aria-hidden="true"></div>
         <div class="orb orb-2" aria-hidden="true"></div>
         <div class="container">
             <div class="hero-inner">
                 <div>
+                    <div class="hero-status">
+                        <span class="status-dot"></span>
+                        Available for Opportunities
+                    </div>
                     <h1 class="hero-name">
                         <span class="first">Haider</span><br />
                         <span class="last">Ali Shah</span>
                     </h1>
-                    <p class="hero-role"><span>AI Student</span> · Backend Developer · Chatbot Builder</p>
-                    <p class="hero-bio">BS Artificial Intelligence student from <strong
-                            style="color:var(--text)">Pakistan 🇵🇰</strong>, passionate about building intelligent
-                        systems — from RAG-powered chatbots. I write code, read books, and chase ambitious ideas.</p>
+                   <p class="hero-role">
+  <p class="hero-role">
+    <span>Co-Founder &amp; Lead Developer · 77 Tech Solution</span>
+    <br>
+    <span>AI Student</span>
+    <span>Backend Developer</span>
+    <span>Chatbot Builder</span>
+</p>
+
+<p class="hero-bio">
+    BS Artificial Intelligence student from <strong style="color:var(--text)">Pakistan 🇵🇰</strong>, passionate about building intelligent systems — from RAG-powered chatbots. I write code, read books, and chase ambitious ideas.
+</p>
                     <div class="hero-cta">
                         <a href="#projects" class="btn btn-neon">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.5" stroke-linecap="round">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
                                 <path d="M9 18l6-6-6-6" />
                             </svg>
                             View My Projects
@@ -1694,15 +1984,10 @@
                 </div>
                 <div class="hero-card">
                     <div class="hero-img" id="hero-img-box">
-                        <img id="hero-photo" src="haider.jpg.jpeg" alt="Haider Ali Shah"
-                            onerror="this.style.display='none';document.getElementById('hero-fallback').style.display='flex';"
-                            style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;" />
-                        <!-- Fallback shown if photo not found -->
-                        <div id="hero-fallback"
-                            style="display:none;width:100%;height:100%;align-items:center;justify-content:center;flex-direction:column;gap:10px;">
+                        <img id="hero-photo" src="haider.jpg.jpeg" alt="Haider Ali Shah" onerror="this.style.display='none';document.getElementById('hero-fallback').style.display='flex';" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;" />
+                        <div id="hero-fallback" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;flex-direction:column;gap:10px;">
                             <span class="avatar-initials">HAS</span>
-                            <span style="font-size:.72rem;color:var(--text3);text-align:center;padding:0 16px;">Add your
-                                photo — see comment in HTML</span>
+                            <span style="font-size:.72rem;color:var(--text3);text-align:center;padding:0 16px;">Add your photo</span>
                         </div>
                     </div>
                     <div class="hero-badge">
@@ -1714,52 +1999,51 @@
             </div>
         </div>
         <div class="scroll-hint" aria-hidden="true">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
                 <path d="M12 5v14M5 12l7 7 7-7" />
             </svg>
             Scroll
         </div>
     </section>
 
-    <!-- ABOUT -->
     <section id="about" aria-label="About Me">
         <div class="container">
             <div class="about-grid">
                 <div class="reveal">
                     <div class="about-card">
-                        <!-- FIX: Now using the correct photo filename -->
                         <div class="about-avatar" style="overflow:hidden;padding:0;">
-                            <img src="haider.jpg.jpeg" alt="Haider Ali Shah"
-                                onerror="this.style.display='none';this.parentElement.innerHTML='HAS';"
-                                style="width:100%;height:100%;object-fit:cover;object-position:top;border-radius:50%;" />
+                            <img src="haider.jpg.jpeg" alt="Haider Ali Shah" onerror="this.style.display='none';this.parentElement.innerHTML='HAS';" style="width:100%;height:100%;object-fit:cover;object-position:top;border-radius:50%;" />
                         </div>
                         <div class="about-card-name">Haider Ali Shah</div>
                         <div class="about-card-deg">BS Artificial Intelligence</div>
                         <div class="about-card-details">
                             <div class="acd-item"><span class="acd-icon">📍</span><span>Pakistan</span></div>
-                            <div class="acd-item"><span class="acd-icon">🎓</span><span>BS Artificial
-                                    Intelligence</span></div>
-                            <div class="acd-item"><span class="acd-icon">💼</span><span>Student &amp; Developer</span>
-                            </div>
-                            <div class="acd-item"><span class="acd-icon">📧</span><span
-                                    style="font-size:.78rem;word-break:break-all">haiderneuralnet.contact@gmail.com</span>
-                            </div>
-                            <div class="acd-item"><span class="acd-icon">🌐</span><a
-                                    href="https://github.com/HaiderNeuralNet" target="_blank" rel="noopener"
-                                    style="color:var(--neon);font-size:.82rem">github.com/HaiderNeuralNet</a></div>
+                            <div class="acd-item"><span class="acd-icon">🎓</span><span>BS Artificial Intelligence</span></div>
+                            <div class="acd-item"><span class="acd-icon">💼</span><span>Student &amp; Developer</span></div>
+                            <div class="acd-item"><span class="acd-icon">📧</span><span style="font-size:.78rem;word-break:break-all">haiderneuralnet.contact@gmail.com</span></div>
+                            <div class="acd-item"><span class="acd-icon">🌐</span><a href="https://github.com/HaiderNeuralNet" target="_blank" rel="noopener" style="color:var(--neon);font-size:.82rem">github.com/HaiderNeuralNet</a></div>
                         </div>
                     </div>
                 </div>
                 <div class="reveal d1">
                     <div class="s-label">About Me</div>
                     <h2 class="s-title">Building the Future<br />with Intelligence</h2>
-                    <p class="about-bio-text">Hey! I'm <strong>Haider Ali Shah</strong>, a <strong>Backend
-                            Developer</strong> and <strong>Artificial Intelligence student</strong> from Pakistan. I
-                        build scalable APIs, backend systems, and <strong>LLM-powered applications</strong> like AI
-                        chatbots. I focus on integrating intelligent backend systems that power the <strong>frontend
-                            with AI capabilities</strong>.</p>
-                    <div class="fun-facts">
+<p class="about-bio-text">
+    Hey! I'm <strong>Haider Ali Shah</strong>, 
+    <strong>Co-Founder &amp; Lead Developer · 77 Tech Solution</strong>
+    and a <strong>Backend Developer</strong> &amp; 
+    <strong>Artificial Intelligence student</strong>.
+    <br>
+    I have hands-on experience in <strong>web development</strong>,
+    building responsive websites, dynamic web applications, scalable
+    <strong>backend systems</strong>, REST APIs, and database-driven platforms
+    using technologies like PHP, MySQL, React, and Next.js.
+    <br>
+    
+    Alongside web development, I am focused on
+    <strong>Machine Learning, NLP, LLMs, and AI-powered applications</strong>,
+    including intelligent chatbots and AI-integrated systems.
+</p>                    <div class="fun-facts">
                         <div class="ff-card">
                             <div class="ff-icon">🤖</div>
                             <div class="ff-label">Passion</div>
@@ -1783,11 +2067,9 @@
                     </div>
                     <div style="display:flex;gap:12px;flex-wrap:wrap">
                         <a href="#contact" class="btn btn-neon">Get In Touch</a>
-                        <a href="https://github.com/HaiderNeuralNet" target="_blank" rel="noopener"
-                            class="btn btn-ghost">
+                        <a href="https://github.com/HaiderNeuralNet" target="_blank" rel="noopener" class="btn btn-ghost">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                                <path
-                                    d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.091.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
+                                <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.091.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
                             </svg>
                             GitHub
                         </a>
@@ -1797,8 +2079,7 @@
         </div>
     </section>
 
-    <!-- SKILLS -->
-    <section id="skills" aria-label="Skills">
+   <section id="skills" aria-label="Skills">
         <div class="container">
             <div class="s-head reveal">
                 <div class="s-label">Toolkit</div>
@@ -1826,8 +2107,7 @@
                             <div class="sb-fill" data-w="78"></div>
                         </div>
                     </div>
-                    <div class="skill-tags-row"><span class="st">Pytorch</span><span class="st">OpenAI
-                            API</span><span class="st">Pandas</span><span class="st">NumPy</span></div>
+                    <div class="skill-tags-row"><span class="st">Pytorch</span><span class="st">OpenAI API</span><span class="st">Pandas</span><span class="st">NumPy</span></div>
                 </div>
                 <div class="skill-cat reveal d1">
                     <div class="sc-title">Programming</div>
@@ -1849,14 +2129,34 @@
                             <div class="sb-fill" data-w="82"></div>
                         </div>
                     </div>
-                    <div class="skill-tags-row"><span class="st">Data Structures</span><span
-                            class="st">Algorithms</span><span class="st">OOP</span></div>
+                    <div class="skill-tags-row"><span class="st">Data Structures</span><span class="st">Algorithms</span><span class="st">OOP</span></div>
+                </div>
+                <div class="skill-cat reveal d2">
+                    <div class="sc-title">Web Development</div>
+                    <div class="skill-bar-row">
+                        <div class="sb-top"><span>React</span><span>90%</span></div>
+                        <div class="sb-track">
+                            <div class="sb-fill" data-w="90"></div>
+                        </div>
+                    </div>
+                    <div class="skill-bar-row">
+                        <div class="sb-top"><span>Next.js</span><span>85%</span></div>
+                        <div class="sb-track">
+                            <div class="sb-fill" data-w="85"></div>
+                        </div>
+                    </div>
+                    <div class="skill-bar-row">
+                        <div class="sb-top"><span>PHP / Backend</span><span>80%</span></div>
+                        <div class="sb-track">
+                            <div class="sb-fill" data-w="80"></div>
+                        </div>
+                    </div>
+                    <div class="skill-tags-row"><span class="st">JavaScript</span><span class="st">HTML/CSS</span><span class="st">REST APIs</span><span class="st">Responsive Design</span></div>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- PROJECTS -->
+ 
     <section id="projects" aria-label="Projects">
         <div class="container">
             <div class="s-head reveal">
@@ -1865,6 +2165,42 @@
                 <p class="s-sub">Things I've built — from console programs to AI-powered applications.</p>
             </div>
             <div class="projects-grid">
+                <article class="proj-card reveal">
+    <div class="proj-thumb g2">
+        <span class="proj-num">🚀</span>
+        <img src="icon.png" alt="77 Tech Solution" class="proj-emoji">
+    </div>
+
+    <div class="proj-body">
+        <div class="proj-stack">
+            <span class="proj-tag">React</span>
+            <span class="proj-tag">Next.js</span>
+            <span class="proj-tag">SSR</span>
+            <span class="proj-tag">JavaScript</span>
+            <span class="proj-tag">Responsive</span>
+        </div>
+
+        <h3 class="proj-title">77 Tech Solution</h3>
+
+        <p class="proj-desc">
+            A professional agency website developed for 77 Tech Solution,
+            featuring a modern responsive interface, React-based architecture,
+            Next.js server-side rendering, optimized performance, and a
+            professional presentation of digital and technology services.
+        </p>
+
+        <div class="proj-actions">
+            <a href="https://77-tech.netlify.app"
+                target="_blank"
+                rel="noopener"
+                class="btn btn-neon btn-sm">
+                Live Website
+            </a>
+
+           
+        </div>
+    </div>
+</article>
                 <article class="proj-card reveal">
     <div class="proj-thumb g2">
         <span class="proj-num">🏆 </span>
@@ -1892,12 +2228,11 @@
             <a href="https://youth.ipcih.gov.pk" target="_blank"
                 rel="noopener" class="btn btn-neon btn-sm">Live Website</a>
 
-            <a href="https://youth.ipcih.gov.pk" target="_blank"
-                rel="noopener" class="btn btn-ghost btn-sm">Visit Site</a>
+            
         </div>
     </div>
 </article>
-                <article class="proj-card reveal d1">
+ <article class="proj-card reveal d1">
     <div class="proj-thumb g1">
        <span class="proj-num">🏆 </span>
         <span class="proj-emoji">🎓</span>
@@ -1924,12 +2259,11 @@
             <a href="https://lms.ipcih.gov.pk" target="_blank"
                 rel="noopener" class="btn btn-neon btn-sm">Live Website</a>
 
-            <a href="https://lms.ipcih.gov.pk" target="_blank"
-                rel="noopener" class="btn btn-ghost btn-sm">Visit Site</a>
+            
         </div>
     </div>
 </article>
-                <article class="proj-card reveal">
+ <article class="proj-card reveal">
                     <div class="proj-thumb g2"><span class="proj-num">01</span><span class="proj-emoji">🤖</span></div>
                     <div class="proj-body">
                         <div class="proj-stack"><span class="proj-tag">Python</span><span
@@ -1948,82 +2282,43 @@
                 <article class="proj-card reveal d1">
                     <div class="proj-thumb g1"><span class="proj-num">02</span><span class="proj-emoji">🏧</span></div>
                     <div class="proj-body">
-                        <div class="proj-stack"><span class="proj-tag">C++</span><span class="proj-tag">OOP</span><span
-                                class="proj-tag">File Handling</span></div>
+                        <div class="proj-stack"><span class="proj-tag">C++</span><span class="proj-tag">OOP</span><span class="proj-tag">File Handling</span></div>
                         <h3 class="proj-title">Simple ATM Machine</h3>
-                        <p class="proj-desc">A console-based ATM simulation built in C++ with object-oriented design.
-                            Supports account creation, balance inquiry, deposits, withdrawals, and persistent data
-                            storage using file handling.</p>
-                        <div class="proj-actions"><a href="https://github.com/HaiderNeuralNet" target="_blank"
-                                rel="noopener" class="btn btn-neon btn-sm">View Project</a><a
-                                href="https://github.com/HaiderNeuralNet/ATM-MACHINE" target="_blank" rel="noopener"
-                                class="btn btn-ghost btn-sm">Source Code</a></div>
+                        <p class="proj-desc">A console-based ATM simulation built in C++ with object-oriented design. Supports account creation, balance inquiry, deposits, withdrawals, and persistent data storage using file handling.</p>
+                        <div class="proj-actions"><a href="https://github.com/HaiderNeuralNet" target="_blank" rel="noopener" class="btn btn-neon btn-sm">View Project</a><a href="https://github.com/HaiderNeuralNet" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">Source Code</a></div>
                     </div>
                 </article>
                 <article class="proj-card reveal d2">
                     <div class="proj-thumb g3"><span class="proj-num">03</span><span class="proj-emoji">📁</span></div>
                     <div class="proj-body">
-                        <div class="proj-stack"><span class="proj-tag">C++</span><span class="proj-tag">File
-                                I/O</span><span class="proj-tag">Data Management</span></div>
+                        <div class="proj-stack"><span class="proj-tag">C++</span><span class="proj-tag">File I/O</span><span class="proj-tag">Data Management</span></div>
                         <h3 class="proj-title">File Handling System</h3>
-                        <p class="proj-desc">A robust file management system demonstrating advanced file I/O operations
-                            in C++. Includes CRUD operations, binary file storage, record management, and structured
-                            data persistence.</p>
-                        <div class="proj-actions"><a href="https://github.com/HaiderNeuralNet" target="_blank"
-                                rel="noopener" class="btn btn-neon btn-sm">View Project</a><a
-                                href="https://github.com/HaiderNeuralNet/File-Handling" target="_blank" rel="noopener"
-                                class="btn btn-ghost btn-sm">Source Code</a></div>
+                        <p class="proj-desc">A robust file management system demonstrating advanced file I/O operations in C++. Includes CRUD operations, binary file storage, record management, and structured data persistence.</p>
+                        <div class="proj-actions"><a href="https://github.com/HaiderNeuralNet" target="_blank" rel="noopener" class="btn btn-neon btn-sm">View Project</a><a href="https://github.com/HaiderNeuralNet" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">Source Code</a></div>
                     </div>
                 </article>
                 <article class="proj-card reveal">
                     <div class="proj-thumb g4"><span class="proj-num">04</span><span class="proj-emoji">🧮</span></div>
                     <div class="proj-body">
-                        <div class="proj-stack"><span class="proj-tag">Python</span><span
-                                class="proj-tag">Tkinter</span><span class="proj-tag">GUI</span></div>
+                        <div class="proj-stack"><span class="proj-tag">Python</span><span class="proj-tag">Tkinter</span><span class="proj-tag">GUI</span></div>
                         <h3 class="proj-title">Calculator App</h3>
-                        <p class="proj-desc">A feature-rich calculator application with a clean graphical user
-                            interface. Supports basic arithmetic, scientific operations, keyboard input, and a
-                            calculation history log.</p>
-                        <div class="proj-actions"><a href="https://github.com/HaiderNeuralNet" target="_blank"
-                                rel="noopener" class="btn btn-neon btn-sm">View Project</a><a
-                                href="https://github.com/HaiderNeuralNet/CLI-calculator-python" target="_blank" rel="noopener"
-                                class="btn btn-ghost btn-sm">Source Code</a></div>
+                        <p class="proj-desc">A feature-rich calculator application with a clean graphical user interface. Supports basic arithmetic, scientific operations, keyboard input, and a calculation history log.</p>
+                        <div class="proj-actions"><a href="https://github.com/HaiderNeuralNet" target="_blank" rel="noopener" class="btn btn-neon btn-sm">View Project</a><a href="https://github.com/HaiderNeuralNet" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">Source Code</a></div>
                     </div>
                 </article>
                 <article class="proj-card reveal d1">
                     <div class="proj-thumb g5"><span class="proj-num">05</span><span class="proj-emoji">🎮</span></div>
                     <div class="proj-body">
-                        <div class="proj-stack"><span class="proj-tag">Python</span><span
-                                class="proj-tag">Logic</span><span class="proj-tag">CLI</span></div>
+                        <div class="proj-stack"><span class="proj-tag">Python</span><span class="proj-tag">Logic</span><span class="proj-tag">CLI</span></div>
                         <h3 class="proj-title">Number Guess Game</h3>
-                        <p class="proj-desc">An interactive number-guessing game with multiple difficulty levels, score
-                            tracking, and hints. Features a clean CLI interface with colorful output, leaderboard, and
-                            replay functionality.</p>
-                        <div class="proj-actions"><a href="https://github.com/HaiderNeuralNet" target="_blank"
-                                rel="noopener" class="btn btn-neon btn-sm">View Project</a><a
-                                href="https://github.com/HaiderNeuralNet/NumberGuessGame" target="_blank" rel="noopener"
-                                class="btn btn-ghost btn-sm">Source Code</a></div>
-                    </div>
-                </article>
-                 <article class="proj-card reveal d2">
-                    <div class="proj-thumb g6"><span class="proj-num">06</span><span class="proj-emoji">📊</span></div>
-                    <div class="proj-body">
-                        <div class="proj-stack"><span class="proj-tag">Python</span><span
-                                class="proj-tag">Tkinter</span><span class="proj-tag">GUI</span><span
-                                class="proj-tag">Text Processing</span></div>
-                        <h3 class="proj-title">Word Counter</h3>
-                        <p class="proj-desc">A sleek and efficient word counter application with a user-friendly GUI. Count words, characters, and analyze text in real-time. Perfect for writers, students, and content creators.</p>
-                        <div class="proj-actions"><a href="https://github.com/HaiderNeuralNet" target="_blank"
-                                rel="noopener" class="btn btn-neon btn-sm">View Project</a><a
-                                href="https://github.com/HaiderNeuralNet/Words-Counter" target="_blank" rel="noopener"
-                                class="btn btn-ghost btn-sm">Source Code</a></div>
+                        <p class="proj-desc">An interactive number-guessing game with multiple difficulty levels, score tracking, and hints. Features a clean CLI interface with colorful output, leaderboard, and replay functionality.</p>
+                        <div class="proj-actions"><a href="https://github.com/HaiderNeuralNet" target="_blank" rel="noopener" class="btn btn-neon btn-sm">Play Game</a><a href="https://github.com/HaiderNeuralNet" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">Source Code</a></div>
                     </div>
                 </article>
             </div>
         </div>
     </section>
 
-    <!-- EDUCATION -->
     <section id="education" aria-label="Education">
         <div class="container">
             <div class="s-head reveal">
@@ -2037,16 +2332,10 @@
                         <div class="tl-dot"></div>
                     </div>
                     <div class="tl-card">
-                        <div class="tl-top"><span class="tl-org">University (Pakistan)</span><span class="tl-date">2023
-                                — Present</span></div>
+                        <div class="tl-top"><span class="tl-org">University (Pakistan)</span><span class="tl-date">2023 — Present</span></div>
                         <div class="tl-role">BS Artificial Intelligence</div>
-                        <p class="tl-desc">Studying core AI disciplines including machine learning, deep learning,
-                            natural language processing, computer vision, and data science. Building real-world projects
-                            alongside coursework to develop practical skills in Python, neural networks, and intelligent
-                            system design.</p>
-                        <div class="tl-chips"><span class="tl-chip">Machine Learning</span><span class="tl-chip">Deep
-                                Learning</span><span class="tl-chip">NLP</span><span class="tl-chip">Computer
-                                Vision</span><span class="tl-chip">Data Science</span></div>
+                        <p class="tl-desc">Studying core AI disciplines including machine learning, deep learning, natural language processing, computer vision, and data science. Building real-world projects alongside coursework to develop practical skills in Python, neural networks, and intelligent system design.</p>
+                        <div class="tl-chips"><span class="tl-chip">Machine Learning</span><span class="tl-chip">Deep Learning</span><span class="tl-chip">NLP</span><span class="tl-chip">Computer Vision</span><span class="tl-chip">Data Science</span></div>
                     </div>
                 </div>
                 <div class="tl-item reveal d1">
@@ -2054,15 +2343,10 @@
                         <div class="tl-dot"></div>
                     </div>
                     <div class="tl-card">
-                        <div class="tl-top"><span class="tl-org">Self-Learning</span><span class="tl-date">2024 —
-                                Present</span></div>
+                        <div class="tl-top"><span class="tl-org">Self-Learning</span><span class="tl-date">2024 — Present</span></div>
                         <div class="tl-role">Backend &amp; AI Development</div>
-                        <p class="tl-desc">Continuously building projects to supplement university learning. Completed
-                            hands-on courses in LangChain, RAG pipelines, FastAPI, React, and modern AI deployment.
-                            Strong believer that the best learning comes from building real things.</p>
-                        <div class="tl-chips"><span class="tl-chip">LangChain</span><span
-                                class="tl-chip">RAG</span><span class="tl-chip">FastAPI</span><span
-                                class="tl-chip">React</span><span class="tl-chip">Vector DBs</span></div>
+                        <p class="tl-desc">Continuously building projects to supplement university learning. Completed hands-on courses in LangChain, RAG pipelines, FastAPI, React, and modern AI deployment. Strong believer that the best learning comes from building real things.</p>
+                        <div class="tl-chips"><span class="tl-chip">LangChain</span><span class="tl-chip">RAG</span><span class="tl-chip">FastAPI</span><span class="tl-chip">React</span><span class="tl-chip">Vector DBs</span></div>
                     </div>
                 </div>
                 <div class="tl-item reveal d2">
@@ -2070,28 +2354,22 @@
                         <div class="tl-dot"></div>
                     </div>
                     <div class="tl-card">
-                        <div class="tl-top"><span class="tl-org">College / FSc</span><span class="tl-date">2021 —
-                                2022</span></div>
+                        <div class="tl-top"><span class="tl-org">College / FSc</span><span class="tl-date">2021 — 2022</span></div>
                         <div class="tl-role">FSc ICS</div>
-                        <p class="tl-desc">Completed FSc with a focus on mathematics, physics, and computer science
-                            fundamentals. This is where my interest in programming and logical problem-solving first
-                            took root.</p>
-                        <div class="tl-chips"><span class="tl-chip">Mathematics</span><span
-                                class="tl-chip">Physics</span><span class="tl-chip">Computer Basics</span></div>
+                        <p class="tl-desc">Completed FSc with a focus on mathematics, physics, and computer science fundamentals. This is where my interest in programming and logical problem-solving first took root.</p>
+                        <div class="tl-chips"><span class="tl-chip">Mathematics</span><span class="tl-chip">Physics</span><span class="tl-chip">Computer Basics</span></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CONTACT -->
     <section id="contact" aria-label="Contact">
         <div class="container">
             <div class="contact-grid">
                 <div class="reveal">
                     <div class="s-label">Get In Touch</div>
-                    <p class="contact-text">Fill in the form and your message will be sent directly to my email — I'll
-                        reply as soon as I can!</p>
+                    <p class="contact-text">Fill in the form and your message will be sent directly to my email — I'll reply as soon as I can!</p>
                     <div class="contact-links">
                         <button class="c-link copyable" id="copy-email-btn" title="Click to copy email">
                             <span class="ci">✉️</span>
@@ -2101,8 +2379,7 @@
                             </div>
                             <span class="copy-tip" id="copy-tip">Copied! 🎉</span>
                         </button>
-                        <a href="https://www.linkedin.com/in/syed-haider-neuralnet" target="_blank" rel="noopener"
-                            class="c-link">
+                        <a href="https://www.linkedin.com/in/syed-haider-neuralnet" target="_blank" rel="noopener" class="c-link">
                             <span class="ci">💼</span>
                             <div>
                                 <div class="ci-lbl">LinkedIn</div>
@@ -2125,23 +2402,18 @@
                         </div>
                     </div>
                     <div class="socials">
-                        <a href="https://github.com/HaiderNeuralNet" target="_blank" rel="noopener" class="soc"
-                            aria-label="GitHub">
+                        <a href="https://github.com/HaiderNeuralNet" target="_blank" rel="noopener" class="soc" aria-label="GitHub">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                                <path
-                                    d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.091.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
+                                <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.091.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
                             </svg>
                         </a>
-                        <a href="https://www.linkedin.com/in/syed-haider-neuralnet" target="_blank" rel="noopener"
-                            class="soc" aria-label="LinkedIn">
+                        <a href="https://www.linkedin.com/in/syed-haider-neuralnet" target="_blank" rel="noopener" class="soc" aria-label="LinkedIn">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                <path
-                                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
                             </svg>
                         </a>
                         <a href="mailto:haiderneuralnet.contact@gmail.com" class="soc" aria-label="Email">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                                 <polyline points="22,6 12,13 2,6" />
                             </svg>
@@ -2170,20 +2442,17 @@
                         </div>
                         <div class="fg">
                             <label for="f-subject">Subject</label>
-                            <input type="text" id="f-subject" name="subject"
-                                placeholder="Collaboration, project idea, internship offer…" />
+                            <input type="text" id="f-subject" name="subject" placeholder="Collaboration, project idea, internship offer…" />
                             <div class="ferr" id="e-subject">Please enter a subject.</div>
                         </div>
                         <div class="fg">
                             <label for="f-msg">Message</label>
-                            <textarea id="f-msg" name="message"
-                                placeholder="Tell me about your idea, project, or question…"></textarea>
-                            <div class="ferr" id="e-msg">Please write a meaningfull message.</div>
+                            <textarea id="f-msg" name="message" placeholder="Tell me about your idea, project, or question…"></textarea>
+                            <div class="ferr" id="e-msg">Please write a meaningful message.</div>
                         </div>
                         <button type="submit" class="btn btn-neon btn-submit" id="submit-btn">
                             <span id="btn-text">Send Message</span>
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <line x1="22" y1="2" x2="11" y2="13" />
                                 <polygon points="22 2 15 22 11 13 2 9 22 2" />
                             </svg>
@@ -2199,7 +2468,6 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer>
         <div class="container">
             <div class="foot-l">Designed &amp; Built by <span>Haider Ali Shah</span> · © 2026</div>
@@ -2207,45 +2475,137 @@
     </footer>
 
     <button id="btt" aria-label="Back to top">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-            stroke-linecap="round">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
             <path d="M12 19V5M5 12l7-7 7 7" />
         </svg>
     </button>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        /* PRELOADER */
+        const canvas = document.getElementById('canvas-bg');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setClearColor(0x07090f, 0.05);
+        camera.position.z = 30;
+
+        const particles = [];
+        const particleGeometry = new THREE.BufferGeometry();
+        const positionArray = new Float32Array(300);
+
+        for (let i = 0; i < 100; i++) {
+            positionArray[i * 3] = (Math.random() - 0.5) * 100;
+            positionArray[i * 3 + 1] = (Math.random() - 0.5) * 100;
+            positionArray[i * 3 + 2] = (Math.random() - 0.5) * 100;
+        }
+
+        particleGeometry.setAttribute('position', new THREE.BufferAttribute(positionArray, 3));
+        const particleMaterial = new THREE.PointsMaterial({ color: 0x00f5a0, size: 0.3, sizeAttenuation: true });
+        const particleSystem = new THREE.Points(particleGeometry, particleMaterial);
+        scene.add(particleSystem);
+
+        const geometry1 = new THREE.IcosahedronGeometry(3, 4);
+        const material1 = new THREE.MeshPhongMaterial({ color: 0x00f5a0, wireframe: true, emissive: 0x00f5a0, emissiveIntensity: 0.3 });
+        const mesh1 = new THREE.Mesh(geometry1, material1);
+        mesh1.position.set(-15, 10, 0);
+        scene.add(mesh1);
+
+        const geometry2 = new THREE.OctahedronGeometry(4, 2);
+        const material2 = new THREE.MeshPhongMaterial({ color: 0x00d4ff, wireframe: true, emissive: 0x00d4ff, emissiveIntensity: 0.2 });
+        const mesh2 = new THREE.Mesh(geometry2, material2);
+        mesh2.position.set(15, -8, -5);
+        scene.add(mesh2);
+
+        const geometry3 = new THREE.TetrahedronGeometry(3, 1);
+        const material3 = new THREE.MeshPhongMaterial({ color: 0x7b61ff, wireframe: true, emissive: 0x7b61ff, emissiveIntensity: 0.2 });
+        const mesh3 = new THREE.Mesh(geometry3, material3);
+        mesh3.position.set(8, 15, -10);
+        scene.add(mesh3);
+
+        const light1 = new THREE.PointLight(0x00f5a0, 1.5, 100);
+        light1.position.set(20, 20, 20);
+        scene.add(light1);
+
+        const light2 = new THREE.PointLight(0x00d4ff, 1.5, 100);
+        light2.position.set(-20, -20, 20);
+        scene.add(light2);
+
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+        scene.add(ambientLight);
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            mesh1.rotation.x += 0.001;
+            mesh1.rotation.y += 0.002;
+            mesh1.position.x += Math.sin(Date.now() * 0.0001) * 0.01;
+
+            mesh2.rotation.x += 0.0015;
+            mesh2.rotation.y -= 0.0012;
+            mesh2.position.y += Math.cos(Date.now() * 0.00015) * 0.01;
+
+            mesh3.rotation.x -= 0.001;
+            mesh3.rotation.z += 0.002;
+            mesh3.position.x += Math.sin(Date.now() * 0.00012) * 0.01;
+
+            particleSystem.rotation.x += 0.0001;
+            particleSystem.rotation.y += 0.0002;
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        let mouseX = 0;
+        let mouseY = 0;
+        document.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+            mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+            mesh1.rotation.y += mouseX * 0.0001;
+            mesh2.rotation.x += mouseY * 0.0001;
+        });
+
         window.addEventListener('load', () => {
             setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 700);
         });
 
-        /* THEME */
         const html = document.documentElement;
         const themeBtn = document.getElementById('theme-toggle');
         const themeIcon = document.getElementById('theme-icon');
+
         function setTheme(t) {
             html.setAttribute('data-theme', t);
             themeIcon.textContent = t === 'dark' ? '🌙' : '☀️';
             localStorage.setItem('has-theme', t);
         }
+
         setTheme(localStorage.getItem('has-theme') || 'dark');
         themeBtn.addEventListener('click', () => setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
 
-        /* NAV */
         const nav = document.getElementById('nav');
         window.addEventListener('scroll', () => {
             nav.classList.toggle('scrolled', window.scrollY > 20);
             updateActive();
             toggleBtt();
         }, { passive: true });
+
         function updateActive() {
             const links = document.querySelectorAll('.nav-links a');
             let cur = '';
-            document.querySelectorAll('section[id]').forEach(s => { if (window.scrollY >= s.offsetTop - 130) cur = s.id; });
+            document.querySelectorAll('section[id]').forEach(s => {
+                if (window.scrollY >= s.offsetTop - 130) cur = s.id;
+            });
             links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + cur));
         }
 
-        /* HAMBURGER */
         const ham = document.getElementById('hamburger');
         const mmenu = document.getElementById('mobile-menu');
         ham.addEventListener('click', () => {
@@ -2254,29 +2614,44 @@
             ham.setAttribute('aria-expanded', o);
         });
         mmenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-            ham.classList.remove('open'); mmenu.classList.remove('open'); ham.setAttribute('aria-expanded', false);
+            ham.classList.remove('open');
+            mmenu.classList.remove('open');
+            ham.setAttribute('aria-expanded', false);
         }));
 
-        /* REVEAL */
         const revObs = new IntersectionObserver((entries) => {
-            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); revObs.unobserve(e.target); } });
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('in');
+                    revObs.unobserve(e.target);
+                }
+            });
         }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
         document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
 
-        /* SKILL BARS */
         const barObs = new IntersectionObserver((entries) => {
-            entries.forEach(e => { if (e.isIntersecting) { e.target.style.width = e.target.dataset.w + '%'; barObs.unobserve(e.target); } });
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.style.width = e.target.dataset.w + '%';
+                    barObs.unobserve(e.target);
+                }
+            });
         }, { threshold: 0.5 });
+
         document.querySelectorAll('.sb-fill').forEach(b => barObs.observe(b));
 
-        /* BACK TO TOP */
         const btt = document.getElementById('btt');
-        function toggleBtt() { btt.classList.toggle('vis', window.scrollY > 400); }
+
+        function toggleBtt() {
+            btt.classList.toggle('vis', window.scrollY > 400);
+        }
+
         btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-        /* COPY EMAIL */
         const copyBtn = document.getElementById('copy-email-btn');
         const copyTip = document.getElementById('copy-tip');
+
         copyBtn.addEventListener('click', () => {
             navigator.clipboard.writeText('haiderneuralnet.contact@gmail.com').then(() => {
                 copyTip.classList.add('show');
@@ -2284,22 +2659,28 @@
             });
         });
 
-        /* Show success banner if redirected back with ?sent=1 */
         if (window.location.search.includes('sent=1')) {
             document.getElementById('contact-form').style.display = 'none';
             document.getElementById('form-success').style.display = 'block';
             history.replaceState(null, '', window.location.pathname);
         }
 
-        /* Client-side validation */
         const form = document.getElementById('contact-form');
         const submitBtn = document.getElementById('submit-btn');
         const btnText = document.getElementById('btn-text');
 
-        function showErr(errId, el) { document.getElementById(errId).classList.add('show'); el.classList.add('err'); }
-        function hideErr(errId, el) { document.getElementById(errId).classList.remove('show'); el.classList.remove('err'); }
+        function showErr(errId, el) {
+            document.getElementById(errId).classList.add('show');
+            el.classList.add('err');
+        }
+
+        function hideErr(errId, el) {
+            document.getElementById(errId).classList.remove('show');
+            el.classList.remove('err');
+        }
 
         const map = { 'f-name': 'e-name', 'f-email': 'e-email', 'f-subject': 'e-subject', 'f-msg': 'e-msg' };
+
         Object.keys(map).forEach(id => {
             document.getElementById(id).addEventListener('input', function () {
                 this.classList.remove('err');
@@ -2326,5 +2707,4 @@
         });
     </script>
 </body>
-
 </html>
