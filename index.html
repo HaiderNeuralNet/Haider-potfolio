@@ -2392,42 +2392,47 @@
             </div>
         </div>
     </section>
-    <!-- Add this section where you want the contributions to appear -->
-<section id="github-contributions" style="background: var(--bg2); padding-block: clamp(72px, 10vw, 120px);">
+    
+<section id="github" style="background: var(--bg2); padding-block: clamp(72px, 10vw, 120px);">
     <div class="container">
         <div class="s-head reveal">
-            <div class="s-label">GitHub</div>
-            <h2 class="s-title">My Contribution Graph</h2>
-            <p class="s-sub">My coding activity on GitHub — every square represents a day of contributions.</p>
+            <div class="s-label">Open Source</div>
+            <h2 class="s-title">GitHub Contributions</h2>
+            <p class="s-sub">My coding journey, one commit at a time.</p>
         </div>
         
-        <div style="background: var(--surface); border-radius: var(--radius-lg); border: 1px solid var(--border); padding: 20px; overflow: hidden;">
-            <!-- GitHub Official Embed -->
-            <picture>
-                <source 
-                    media="(prefers-color-scheme: dark)" 
-                    srcset="https://ghchart.rshah.org/HaiderNeuralNet" 
-                />
-                <source 
-                    media="(prefers-color-scheme: light)" 
-                    srcset="https://ghchart.rshah.org/00f5a0/HaiderNeuralNet" 
-                />
+        <div class="reveal" style="background: var(--surface); border-radius: var(--radius-lg); border: 1px solid var(--border); padding: clamp(20px, 3vw, 40px); overflow: hidden; transition: all 0.3s ease;">
+            <!-- Contribution Chart -->
+            <div style="position: relative; width: 100%;">
                 <img 
                     src="https://ghchart.rshah.org/00f5a0/HaiderNeuralNet" 
                     alt="Haider Ali Shah's GitHub Contribution Graph" 
-                    style="width: 100%; height: auto; display: block;"
+                    style="width: 100%; height: auto; display: block; border-radius: 8px;"
+                    onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=text-align:center;padding:40px 20px;><span style=font-size:2rem;>📊</span><p style=color:var(--text2);margin-top:10px;>Contribution graph temporarily unavailable.</p><a href=https://github.com/HaiderNeuralNet target=_blank style=color:var(--neon);>View on GitHub →</a></div>';"
                 />
-            </picture>
-        </div>
-        
-        <div style="text-align: center; margin-top: 20px;">
-            <a href="https://github.com/HaiderNeuralNet" target="_blank" rel="noopener" class="btn btn-neon">
-                View My GitHub Profile
-            </a>
+            </div>
+            
+            <!-- Stats Row -->
+            <div style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; margin-top: 25px; padding-top: 25px; border-top: 1px solid var(--border);">
+                <div style="text-align: center;">
+                    <div style="font-family: var(--font-head); font-size: 1.5rem; font-weight: 800; color: var(--neon);">10+</div>
+                    <div style="font-size: 0.7rem; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em;">Repositories</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-family: var(--font-head); font-size: 1.5rem; font-weight: 800; color: var(--neon2);">🌱</div>
+                    <div style="font-size: 0.7rem; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em;">Always Learning</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-family: var(--font-head); font-size: 1.5rem; font-weight: 800; color: var(--neon);">
+                        <a href="https://github.com/HaiderNeuralNet?tab=followers" target="_blank" style="color: var(--neon); text-decoration: none;">→</a>
+                    </div>
+                    <div style="font-size: 0.7rem; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em;">Connect</div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
-
+   
     <section id="education" aria-label="Education">
         <div class="container">
             <div class="s-head reveal">
